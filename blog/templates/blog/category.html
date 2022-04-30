@@ -1,0 +1,74 @@
+{% extends 'core/base.html' %}
+
+{% block title %}{{ category.title }} | {% endblock %}
+
+{% block content %}
+    <div style="text-align: center;">
+        <h2>{{ category.title }}</h2>
+    </div>
+    <section class="hero">
+        <div class="hero-body" style="padding-top: 0px;">
+            <div class="container">
+                <section class="section">
+                    <div class="columns">
+                        <div class="row">
+                            {% if posts.count == 0 %}
+                                <div class="content">
+                                    <p>Currently there are no blogs in this category...</p>
+                                </div>
+                            {% elif posts.count == 1 %}
+                                {% for post in posts %}
+                                    <div class="col-md-12">
+                                        <div class="card" style="width: 18rem; margin: 15px;">
+                                            {% if post.image %}
+                                                <img src="{{ post.image.url }}" class="card-img-top" alt="{{ post.title }} image" style="width: 100%; height: 15vw; object-fit: cover;">
+                                            {% endif %}
+                                            <div class="card-body">
+                                            <h5 class="card-title">{{ post.title }}</h5>
+                                            <h6 class="card-subtitle mb-2 text-muted">{{ post.created_at|timesince }} ago</h6>
+                                            <p class="card-text">{{ post.intro|truncatechars:100 }}</p>
+                                            <a href="{% url 'post_detail' post.category.slug post.slug %}" class="nav-link" style="padding-top: 0px; padding-left: 0px;">Continue Reading...</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            {% elif posts.count == 2 %}
+                                {% for post in posts %}
+                                    <div class="col-md-6">
+                                        <div class="card" style="width: 18rem; margin: 15px;">
+                                            {% if post.image %}
+                                                <img src="{{ post.image.url }}" class="card-img-top" alt="{{ post.title }} image" style="width: 100%; height: 15vw; object-fit: cover;">
+                                            {% endif %}
+                                            <div class="card-body">
+                                            <h5 class="card-title">{{ post.title }}</h5>
+                                            <h6 class="card-subtitle mb-2 text-muted">{{ post.created_at|timesince }} ago</h6>
+                                            <p class="card-text">{{ post.intro|truncatechars:100 }}</p>
+                                            <a href="{% url 'post_detail' post.category.slug post.slug %}" class="nav-link" style="padding-top: 0px; padding-left: 0px;">Continue Reading...</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            {% else %}
+                                {% for post in posts %}
+                                    <div class="col-md-4">
+                                        <div class="card" style="width: 18rem; margin: 15px;">
+                                            {% if post.image %}
+                                                <img src="{{ post.image.url }}" class="card-img-top" alt="{{ post.title }} image" style="width: 100%; height: 15vw; object-fit: cover;">
+                                            {% endif %}
+                                            <div class="card-body">
+                                            <h5 class="card-title">{{ post.title }}</h5>
+                                            <h6 class="card-subtitle mb-2 text-muted">{{ post.created_at|timesince }} ago</h6>
+                                            <p class="card-text">{{ post.intro|truncatechars:100 }}</p>
+                                            <a href="{% url 'post_detail' post.category.slug post.slug %}" class="nav-link" style="padding-top: 0px; padding-left: 0px;">Continue Reading...</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </section>
+{% endblock %}
