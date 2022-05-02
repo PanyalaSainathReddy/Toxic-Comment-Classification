@@ -5,7 +5,7 @@ from .models import Post, Category
 from .predict import SVC_Model
 # from prml_helper.processor import Preprocessor
 
-svc_model = SVC_Model()
+# svc_model = SVC_Model()
 
 
 def detail(request, category_slug, slug):
@@ -18,7 +18,7 @@ def detail(request, category_slug, slug):
             comment = form.save(commit=False)
             comment.post = post
             comment_text = comment.body
-            print(svc_model.predict(comment_text)[0])
+            # print(svc_model.predict(comment_text)[0])
             print(comment_text)
             comment.save()
             form = CommentForm()
