@@ -2,7 +2,7 @@ from django.db.models import Q
 from django.shortcuts import get_object_or_404, render
 from .forms import CommentForm
 from .models import Post, Category
-from .predict import SVC_Model
+# from .predict import SVC_Model
 # from prml_helper.processor import Preprocessor
 
 # svc_model = SVC_Model()
