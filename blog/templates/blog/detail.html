@@ -41,20 +41,31 @@
                             </form>
 
                             {% for comment in post.comments.all %}
-                                {% if comment.is_toxic %}
-                                <div class="card mb-4" style="border-width: 3px; border-color: #fc9191;">
-                                    <div class="card-body">
-                                        <strong>{{ comment.name }}</strong> <small>{{ comment.created_at|timesince }} ago</small><br>
-                                        {{ comment.body }}
+                                {% if post.automatic_deletion %}
+                                    {% if not comment.is_toxic %}
+                                    <div class="card mb-4">
+                                        <div class="card-body">
+                                            <strong>{{ comment.name }}</strong> <small>{{ comment.created_at|timesince }} ago</small><br>
+                                            {{ comment.body }}
+                                        </div>
                                     </div>
-                                </div>
+                                    {% endif %}
                                 {% else %}
-                                <div class="card mb-4">
-                                    <div class="card-body">
-                                        <strong>{{ comment.name }}</strong> <small>{{ comment.created_at|timesince }} ago</small><br>
-                                        {{ comment.body }}
+                                    {% if comment.is_toxic %}
+                                    <div class="card mb-4 shadow" style="border-width: 3px; border-color: #fc9191;">
+                                        <div class="card-body">
+                                            <strong>{{ comment.name }}</strong> <small>{{ comment.created_at|timesince }} ago</small><br>
+                                            {{ comment.body }}
+                                        </div>
                                     </div>
-                                </div>
+                                    {% else %}
+                                    <div class="card mb-4">
+                                        <div class="card-body">
+                                            <strong>{{ comment.name }}</strong> <small>{{ comment.created_at|timesince }} ago</small><br>
+                                            {{ comment.body }}
+                                        </div>
+                                    </div>
+                                    {% endif %}
                                 {% endif %}
                             {% endfor %}
                         </div>
