@@ -41,12 +41,21 @@
                             </form>
 
                             {% for comment in post.comments.all %}
-                                <article class="media box">
-                                    <div class="media-content">
+                                {% if comment.is_toxic %}
+                                <div class="card mb-4" style="border-width: 3px; border-color: #fc9191;">
+                                    <div class="card-body">
                                         <strong>{{ comment.name }}</strong> <small>{{ comment.created_at|timesince }} ago</small><br>
                                         {{ comment.body }}
                                     </div>
-                                </article>
+                                </div>
+                                {% else %}
+                                <div class="card mb-4">
+                                    <div class="card-body">
+                                        <strong>{{ comment.name }}</strong> <small>{{ comment.created_at|timesince }} ago</small><br>
+                                        {{ comment.body }}
+                                    </div>
+                                </div>
+                                {% endif %}
                             {% endfor %}
                         </div>
                     </div>

@@ -4,6 +4,7 @@ from .forms import CommentForm
 from .models import Post, Category
 # from .predict import SVC_Model
 # from prml_helper.processor import Preprocessor
+import random
 
 # svc_model = SVC_Model()
 
@@ -18,8 +19,14 @@ def detail(request, category_slug, slug):
             comment = form.save(commit=False)
             comment.post = post
             comment_text = comment.body
-            # print(svc_model.predict(comment_text)[0])
             print(comment_text)
+            toxic = random.choice([0, 1])
+            # toxic = svc_model.predict(comment_text)[0]
+            if toxic == 1:
+                comment.is_toxic = True
+            else:
+                comment.is_toxic = False
+            print(comment.is_toxic)
             comment.save()
             form = CommentForm()
 
